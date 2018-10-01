@@ -25,8 +25,7 @@ int main(int argc, char *argv[]) {
         const _Bool has_debug_flag = argc == DEBUG_FLAG_INDEX;
         if (has_debug_flag) {
             const char *debug_flag = argv[5];
-            int is_valid_debug_flag = strncmp(debug_flag, DEBUG_FLAG, 2);
-            if (is_valid_debug_flag == 0) {
+            if (strcmp(debug_flag, DEBUG_FLAG) == 0) {
                 is_debug = true;
             } else {
                 printf("%s\n", "Expected debug flag '[d]'");
