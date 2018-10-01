@@ -2,6 +2,8 @@
 #include <stdbool.h>
 #include <string.h>
 #include <stdio.h>
+#include "../headers/common.h"
+#include "../headers/t_machine.h"
 
 #define DEBUG_FLAG "-d"
 
@@ -28,14 +30,19 @@ int main(int argc, char *argv[]) {
             if (strcmp(debug_flag, DEBUG_FLAG) == 0) {
                 is_debug = true;
             } else {
-                printf("%s\n", "Expected debug flag '[d]'");
+                error("\nExpected debug flag '[d]'\n");
             }
         }
 
-        //Define initial state
-
-
+        //Define initial state:
+        strcpy(current_state, initial_state);
+        if (matches_state(current_state)) {
+            start_t_machine(command_file_path, input_file_path, output_file_path);
+            return 0;
+        } else {
+            error("\nInvalid initial state");
+        }
+    } else {
+        error("\nInvalid args");
     }
-
-    return 0;
 }
