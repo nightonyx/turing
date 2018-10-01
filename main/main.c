@@ -7,11 +7,11 @@
 
 #define DEBUG_FLAG "-d"
 
+#define DEBUG_FLAG_INDEX 6
+
 #define MAIN_ARG_COUNT 5
 
 #define MAX_ARG_COUNT 6
-
-#define DEBUG_FLAG_INDEX 6
 
 int main(int argc, char *argv[]) {
 

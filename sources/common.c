@@ -33,10 +33,10 @@ void read_file(char *dest, const char *path) {
         unsigned position = 0;
         while (true) {
             const char ch = (const char) fgetc(file);
-            if (ch != EOF || position == size) {
-                dest[position++] = ch;
-            } else {
+            if (ch == EOF || position >= size) {
                 break;
+            } else {
+                dest[position++] = ch;
             }
         }
         fclose(file);

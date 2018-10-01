@@ -6,12 +6,12 @@
 
 #define STATE_SIZE 3
 
-#define CONTEXT_SIZE 1024
+#define COMMAND_CONTEXT_SIZE 1024
 
 unsigned head_current_position = 0;
 char current_state[STATE_SIZE];
 char tape[TAPE_SIZE];
-char command_context[CONTEXT_SIZE];
+char command_context[COMMAND_CONTEXT_SIZE];
 _Bool is_debug_mode = 0;
 struct _iobuf *output_file;
 

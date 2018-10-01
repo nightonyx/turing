@@ -3,7 +3,7 @@
 #include "../headers/t_machine.h"
 
 static void simulate() {
-
+    
 }
 
 void start_t_machine(

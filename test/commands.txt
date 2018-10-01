@@ -1,3 +1,0 @@
-1 state1 - 1 state1 R
-
-'' state1 - 1 state1 R
