@@ -39,6 +39,7 @@ void read_file(char *dest, const char *path) {
                 break;
             }
         }
+        fclose(file);
     } else {
         error("Can not get access to the file");
     }

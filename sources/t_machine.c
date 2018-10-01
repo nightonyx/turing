@@ -2,6 +2,9 @@
 #include "../headers/common.h"
 #include "../headers/t_machine.h"
 
+static void simulate() {
+
+}
 
 void start_t_machine(
         const char *command_file_path,
@@ -13,6 +16,7 @@ void start_t_machine(
     //Read tape
     read_file(tape, input_file_path);
     //Open output file
-    FILE *output_file = fopen(output_file_path, WRITE_MODE);
-
+    output_file = fopen(output_file_path, WRITE_MODE);
+    simulate();
+    fclose(output_file);
 }
