@@ -3,6 +3,8 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <process.h>
+#include <stdbool.h>
+#include "../headers/common.h"
 
 char *substring(const char *source, const unsigned start, const unsigned end) {
     const unsigned dest_size = end - start + 1;
@@ -22,4 +24,22 @@ _Bool matches_state(const char *state) {
 void error(const char *message) {
     perror(message);
     exit(1);
+}
+
+void read_file(char *dest, const char *path) {
+    FILE *file = fopen(path, READ_MODE);
+    if (file) {
+        const unsigned size = sizeof(dest);
+        unsigned position = 0;
+        while (true) {
+            const char ch = (const char) fgetc(file);
+            if (ch != EOF || position == size) {
+                dest[position++] = ch;
+            } else {
+                break;
+            }
+        }
+    } else {
+        error("Can not get access to the file");
+    }
 }
