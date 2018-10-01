@@ -41,6 +41,6 @@ void read_file(char *dest, const char *path) {
         }
         fclose(file);
     } else {
-        error("Can not get access to the file");
+        error("\nCan not get access to the file\n");
     }
 }

@@ -36,12 +36,13 @@ int main(int argc, char *argv[]) {
         //Define initial state:
         strcpy(current_state, initial_state);
         if (matches_state(current_state)) {
+            //Launch program:
             start_t_machine(command_file_path, input_file_path, output_file_path);
             return 0;
         } else {
-            error("\nInvalid initial state");
+            error("\nInvalid initial state\n");
         }
     } else {
-        error("\nInvalid args");
+        error("\nInvalid args\n");
     }
 }
