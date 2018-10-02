@@ -5,10 +5,19 @@
 
 #define WRITE_MODE "w"
 
+typedef struct str {
+    char *data;
+    unsigned capacity;
+} str;
+
+str *create_str();
+
+void grow_str(str *string);
+
 _Bool matches_state(const char *state);
 
 void error(const char *message);
 
-void read_file(char *dest, unsigned capacity, const char *path);
+void read_file(struct str *dest, const char *path);
 
 #endif //TURING_COMMON_H

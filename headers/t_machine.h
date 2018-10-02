@@ -2,16 +2,12 @@
 
 #define TURING_T_MACHINE_H
 
-#define TAPE_SIZE 1024
-
 #define STATE_SIZE 3
-
-#define COMMAND_CONTEXT_SIZE 1024
 
 extern unsigned head_current_position;
 extern char current_state[STATE_SIZE];
-extern char tape[TAPE_SIZE];
-extern char command_context[COMMAND_CONTEXT_SIZE];
+extern struct str *tape;
+extern struct str *command_context;
 extern _Bool is_debug_mode;
 extern struct _iobuf *output_file;
 
