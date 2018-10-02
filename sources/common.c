@@ -6,15 +6,6 @@
 #include <stdbool.h>
 #include "../headers/common.h"
 
-char *substring(const char *source, const unsigned start, const unsigned end) {
-    const unsigned dest_size = end - start + 1;
-    char *dest = calloc(dest_size, sizeof(char));
-    for (unsigned i = 0; i < dest_size; ++i) {
-        dest[i] = source[start + i];
-    }
-    return dest;
-}
-
 _Bool matches_state(const char *state) {
     return strlen(state) == 2
            && isalpha(state[0])
@@ -26,10 +17,10 @@ void error(const char *message) {
     exit(1);
 }
 
-void read_file(char *dest, const char *path) {
+void read_file(char *dest, const unsigned capacity, const char *path) {
     FILE *file = fopen(path, READ_MODE);
     if (file) {
-        const unsigned size = sizeof(dest);
+        const unsigned size = capacity;
         unsigned position = 0;
         while (true) {
             const char ch = (const char) fgetc(file);

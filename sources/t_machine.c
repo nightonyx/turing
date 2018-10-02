@@ -5,7 +5,7 @@
 #include "../headers/common.h"
 #include "../headers/t_machine.h"
 
-#define CMD_SHIFT 12
+#define COMMAND_SHIFT 12
 
 #define USER_MESSAGE_MAX_SIZE 3
 
@@ -65,23 +65,26 @@ static void modify_iterator_flag(const unsigned command_iterator, _Bool *is_simu
     }
 }
 
-static char *construct_msg(const unsigned command_iterator) {
+static char *construct_message(const unsigned command_iterator) {
     const unsigned valid_tape_size = strlen(tape);
     const unsigned message_capacity = LINE_BREAK_SIZE + valid_tape_size + LINE_BREAK_SIZE + valid_tape_size
-                                      + LINE_BREAK_SIZE + CMD_SHIFT + LINE_BREAK_SIZE + 1;
+                                      + LINE_BREAK_SIZE + 10 + LINE_BREAK_SIZE + 1 + 1;
     char *message = calloc(message_capacity, sizeof(char));
+//    for (int j = 0; j < message_capacity - 1; ++j) {
+//        message[j] = 'x';
+//    }
     message[0] = '\n';
     for (unsigned i = LINE_BREAK_SIZE; i < valid_tape_size + LINE_BREAK_SIZE; ++i) {
         message[i] = '_';
-        message[valid_tape_size + LINE_BREAK_SIZE + i] = tape[i];
+        message[valid_tape_size + LINE_BREAK_SIZE + i] = tape[i - 1];
     }
     message[LINE_BREAK_SIZE + valid_tape_size] = '\n';
     message[head_current_position + LINE_BREAK_SIZE] = 'V';
-    message[LINE_BREAK_SIZE + valid_tape_size + LINE_BREAK_SIZE + valid_tape_size] = '\n';
-
+    message[LINE_BREAK_SIZE + valid_tape_size + valid_tape_size] = tape[valid_tape_size - 1];
+    message[LINE_BREAK_SIZE + valid_tape_size + valid_tape_size + LINE_BREAK_SIZE] = '\n';
     message[message_capacity - 2] = '\n';
-    for (unsigned k = 0; k < 12; ++k) {
-        message[message_capacity - 3 - k] = command_context[command_iterator + 12 - k];
+    for (unsigned k = 0; k < 11; ++k) {
+        message[message_capacity - 3 - k] = command_context[command_iterator + 10 - k];
     }
     return message;
 }
@@ -97,7 +100,7 @@ static void simulate() {
             } else if (is_equals_current_value(command_iterator) && is_equals_current_state(command_iterator)) {
                 break;
             } else {
-                command_iterator += CMD_SHIFT;
+                command_iterator += COMMAND_SHIFT;
             }
         }
         set_new_value(command_iterator);
@@ -105,9 +108,8 @@ static void simulate() {
         modify_iterator_flag(command_iterator, &is_simulating);
 
         //Work with message:
-        char *message = construct_msg(command_iterator);
+        char *message = construct_message(command_iterator);
         fputs(message, output_file);
-        free(message);
 
         //Machine mode:
         if (is_debug_mode) {
@@ -115,14 +117,15 @@ static void simulate() {
             printf("\nEnter message:\n");
             scanf("%3s", user_message);
             if (strcmp(user_message, ">") == 0) {
-                //Nothing...
+                printf("%s", message);
             } else if (strcmp(user_message, ">>") == 0) {
                 is_debug_mode = false;
             } else if (strcmp(user_message, "||") == 0) {
                 is_simulating = false;
             } else {
-                error("Invalid user message");
+                error("\nInvalid user message\n");
             }
+            free(message);
         }
     }
 }
@@ -133,9 +136,9 @@ void start_t_machine(
         const char *output_file_path
 ) {
     //Read commands
-    read_file(command_context, command_file_path);
+    read_file(command_context, COMMAND_CONTEXT_SIZE, command_file_path);
     //Read tape
-    read_file(tape, input_file_path);
+    read_file(tape, TAPE_SIZE, input_file_path);
     //Open output file
     output_file = fopen(output_file_path, WRITE_MODE);
     //Make simulating
