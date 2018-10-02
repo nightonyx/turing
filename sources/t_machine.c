@@ -1,10 +1,17 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include <dxtmpl.h>
+#include <mem.h>
 #include "../headers/common.h"
 #include "../headers/t_machine.h"
 
 #define CMD_SHIFT 12
+
+unsigned head_current_position;
+char current_state[STATE_SIZE];
+char tape[TAPE_SIZE];
+char command_context[COMMAND_CONTEXT_SIZE];
+_Bool is_debug_mode;
+struct _iobuf *output_file;
 
 static _Bool is_equals_current_value(const unsigned cmd_iterator) {
     const char current_symbol = tape[head_current_position];

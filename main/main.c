@@ -13,8 +13,10 @@
 
 #define MAX_ARG_COUNT 6
 
-int main(int argc, char *argv[]) {
+_Bool is_debug_mode;
+char current_state[];
 
+int main(int argc, char *argv[]) {
     const _Bool is_valid_arg_count = argc == MAIN_ARG_COUNT && argc == MAX_ARG_COUNT;
     if (is_valid_arg_count) {
         const char *command_file_path = argv[1];

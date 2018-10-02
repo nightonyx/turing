@@ -8,12 +8,12 @@
 
 #define COMMAND_CONTEXT_SIZE 1024
 
-unsigned head_current_position = 0;
-char current_state[STATE_SIZE];
-char tape[TAPE_SIZE];
-char command_context[COMMAND_CONTEXT_SIZE];
-_Bool is_debug_mode = 0;
-struct _iobuf *output_file;
+extern unsigned head_current_position;
+extern char current_state[STATE_SIZE];
+extern char tape[TAPE_SIZE];
+extern char command_context[COMMAND_CONTEXT_SIZE];
+extern _Bool is_debug_mode;
+extern struct _iobuf *output_file;
 
 void start_t_machine(
         const char *command_file_path,
